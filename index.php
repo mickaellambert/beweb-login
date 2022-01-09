@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -10,7 +12,27 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
-      test 
+    <div class="container">
+      <div class="w-50 mx-auto mt-3">
+        <?php if (!isset($_SESSION['current_user'])) : ?>
+          <form method="post" action="login.php">
+            <div class="form-group">
+              <label for="login">Identifiant</label>
+              <input type="email" class="form-control" name="login" id="login" placeholder="Identifiant">
+            </div>
+            <div class="form-group">
+              <label for="password">Mot de passe</label>
+              <input type="password" class="form-control" name="password" id="password" placeholder="">
+            </div>
+            <button type="submit" class="btn btn-primary">Connexion</button>
+          </form>
+        <?php else: ?>
+            <div class="alert alert-primary" role="alert">
+              <strong>Connecté en tant que <?php echo $_SESSION['current_user']['firstname'] . ' ' . $_SESSION['current_user']['lastname']; ?></strong>
+            </div>
+        <?php endif; ?>
+      </div>
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
