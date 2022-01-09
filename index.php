@@ -1,10 +1,7 @@
-<?php session_start(); ?>
-
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Title</title>
-    <!-- Required meta tags -->
+    <title>Gestion sessions / cookies</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -14,7 +11,9 @@
   <body>
     <div class="container">
       <div class="w-50 mx-auto mt-3">
-        <?php if (!isset($_SESSION['current_user'])) : ?>
+        <!-- On vérifie si notre variable globale COOKIE existe bien et si le cookie contenant l'utilisateur courant aussi -->
+        <?php if (!isset($_COOKIE) || !isset($_COOKIE['CURRENT_USER'])) : ?>
+          <!-- Si ce n'est pas le cas, alors on affiche le formulaire de connexion -->
           <form method="post" action="login.php">
             <div class="form-group">
               <label for="login">Identifiant</label>
@@ -27,14 +26,15 @@
             <button type="submit" class="btn btn-primary">Connexion</button>
           </form>
         <?php else: ?>
+          <!-- Si c'est le cas, on affiche l'utilisateur actuellement connecté -->
             <div class="alert alert-primary" role="alert">
-              <strong>Connecté en tant que <?php echo $_SESSION['current_user']['firstname'] . ' ' . $_SESSION['current_user']['lastname']; ?></strong>
+              <strong>Connecté en tant que <?php echo $_COOKIE['CURRENT_USER']; ?></strong>
+              <a href="logout.php"> Se déconnecter </a>
             </div>
         <?php endif; ?>
       </div>
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
